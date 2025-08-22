@@ -24,15 +24,22 @@ while True:
             print("Not found")
             
     elif choice == "3":
+         for item in cart:
+           price = int(item.get("price") )
+           name  = item.get("name") 
+           if price >= 5000:
+                  price = price*10/100
+                  print(f"New price : {name}:{price}")
+           
+    
+    elif choice == "4":
         name =  input("Entert name: ")
         for item in cart:
           if item.get("name") == name:
-           price = item.get("price") 
-           if price >= 5000:
-                  price = price*10/100
-                  print(f"New price : {price}")
-          else:
-              print("No such item")
+            cart.remove(item)
+            print(f"{name} removed")
+      
+    
     elif choice == "5":
         break
             
