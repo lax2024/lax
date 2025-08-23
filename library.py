@@ -10,9 +10,16 @@ def fun():
         choice = int(input("Enter a choice: "))
         if choice == 1:
             search = input("Enter book title or id to search: ")
-            for item in library:
-                id = item.get("id")
-                title = item.get("title")
+            if search == library[0] or library[1]:
+                 print("Book found")
+                 
+        elif choice == 2:
+            year = ("Enter a year")
+            
+        
+        elif choice == 4:
+              break  
+
+fun()
+             
                 
-                
-                i
