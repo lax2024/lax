@@ -3,6 +3,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import ConfusionMatrixDisplay
+import matplotlib.pyplot as plt
 
 columns = ['class','cap-shape','cap-surface','cap-color','bruises','odor','gill-attachment',
            'gill-spacing','gill-size','gill-color','stalk-shape','stalk-root','stalk-surface-above-ring',
@@ -34,3 +36,12 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
+
+class_names = label_encoder['class'].classes_ 
+
+disp = ConfusionMatrixDisplay.from_estimator(model, X_test, y_test, display_labels=class_names)
+disp.ax_.set_xlabel("Predicted Label")
+disp.ax_.set_ylabel("True Label")
+plt.title("Confusion Matrix")
+plt.show()
+
