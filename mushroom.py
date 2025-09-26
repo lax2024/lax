@@ -50,15 +50,15 @@ new_mushroom_data_raw = pd.DataFrame({
     'population': ['n'], 'habitat': ['g']
 })
 
-new_mushroom_data_encoded = new_mushroom_data_raw.copy()
-for column in new_mushroom_data_encoded.columns:
+new_mushroom_data = new_mushroom_data_raw.copy()
+for column in new_mushroom_data.columns:
     if column in label_encoder:
         le = label_encoder[column]
-        new_mushroom_data_encoded[column] = le.transform(new_mushroom_data_encoded[column])
+        new_mushroom_data[column] = le.transform(new_mushroom_data[column])
         
-predicted_label_encoded = model.predict(new_mushroom_data_encoded)
+predicted_label = model.predict(new_mushroom_data)
 
-predicted_class_raw = label_encoder['class'].inverse_transform(predicted_label_encoded)
+predicted_class_raw = label_encoder['class'].inverse_transform(predicted_label)
 
 print(f"The predicted class for the new mushroom is: {predicted_class_raw[0]}")
 
