@@ -13,6 +13,8 @@ columns = ['class','cap-shape','cap-surface','cap-color','bruises','odor','gill-
 
 df = pd.read_csv("agaricus-lepiota.data", names=columns)
 
+
+
 print("Counts of '?' in columns:")
 print((df == '?').sum())
 
@@ -36,6 +38,29 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 
 print("Accuracy:", accuracy_score(y_test, y_pred))
+
+new_mushroom_data_raw = pd.DataFrame({
+    'cap-shape': ['x'], 'cap-surface': ['s'], 'cap-color': ['n'], 
+    'bruises': ['t'], 'odor': ['a'], 'gill-attachment': ['f'],
+    'gill-spacing': ['c'], 'gill-size': ['n'], 'gill-color': ['k'],
+    'stalk-shape': ['e'], 'stalk-root': ['e'], 'stalk-surface-above-ring': ['s'],
+    'stalk-surface-below-ring': ['s'], 'stalk-color-above-ring': ['w'],
+    'stalk-color-below-ring': ['w'], 'veil-type': ['p'], 'veil-color': ['w'],
+    'ring-number': ['o'], 'ring-type': ['p'], 'spore-print-color': ['n'],
+    'population': ['n'], 'habitat': ['g']
+})
+
+new_mushroom_data_encoded = new_mushroom_data_raw.copy()
+for column in new_mushroom_data_encoded.columns:
+    if column in label_encoder:
+        le = label_encoder[column]
+        new_mushroom_data_encoded[column] = le.transform(new_mushroom_data_encoded[column])
+        
+predicted_label_encoded = model.predict(new_mushroom_data_encoded)
+
+predicted_class_raw = label_encoder['class'].inverse_transform(predicted_label_encoded)
+
+print(f"The predicted class for the new mushroom is: {predicted_class_raw[0]}")
 
 class_names = label_encoder['class'].classes_ 
 
